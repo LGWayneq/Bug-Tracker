@@ -1,42 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-function Login() {
-    const username = useFormInput('');
-    const password = useFormInput('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+import Login from "./components/Login";
+import Register from "./components/Register";
 
-    const handleLogin = () => {
-        
-    }
-
+function App() {
     return (
-        <div>
-            Login<br/><br/>
-            <div>
-                Username<br/>
-                <input type="text" {...username} autoComplete="new-password"/>
-            </div>
-            <div>
-                Password<br/>
-                <input type="password" {...password} autoComplete="new-password"/>
-            </div>
-            <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading}/><br/>
+        <div className="app">
+            <BrowserRouter>
+                <Routes>
+                    <Route exact path="/" element={<Login />}/>
+                    <Route exact path="/register" element={<Register />}/>
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }
 
-const useFormInput = initialValue => {
-    const [value, setValue] = useState(initialValue);
-
-    const handleChange = e => {
-        setValue(e.target.value);
-    }
-
-    return {
-        value,
-        onChange: handleChange
-    }
-}
-
-export default Login;
+export default App;
