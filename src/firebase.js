@@ -1,16 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,signOut} from "firebase/auth";
 import { getFirestore,query,getDocs,collection,where,addDoc,} from "firebase/firestore";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyC6LloEmNmeTqmAeewY2I8HwqECyljl-uw",
-    authDomain: "bug-tracker-594e8.firebaseapp.com",
-    projectId: "bug-tracker-594e8",
-    storageBucket: "bug-tracker-594e8.appspot.com",
-    messagingSenderId: "1002227493895",
-    appId: "1:1002227493895:web:294ccc4df38026394bcea2",
-    measurementId: "G-GXW10F2LBF"
-  };
+import firebaseConfig from "./firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -21,7 +12,7 @@ const logInWithGoogle = async() => {
     try {
         const response = await signInWithPopup(auth, googleProvider);
         const user = response.user;
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
             await addDoc(collection(db, "users"), {

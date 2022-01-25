@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
+import AddBug from "./components/AddBug";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route exact path="/register" element={<Register />}/>
                     <Route exact path="/reset" element={<Reset />}/>
                     <Route exact path="/dashboard" element={<Dashboard />}/>
+                    <Route exact path ="/addbug" element={<AddBug/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
