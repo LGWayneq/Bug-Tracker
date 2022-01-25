@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { getFirestore,query,getDocs,collection,where,addDoc, deleteDoc,doc} from "firebase/firestore";
 import firebaseConfig from "./firebaseConfig";
 
@@ -10,6 +11,17 @@ const getBug = async(name) => {
         const q = query(collection(db, "bugs"), where("name", "==", name));
         const docs = await getDocs(q);
         return docs.docs[0];
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+};
+
+const getAllBugs = async() => {
+    try {
+        const q = query(collection(db, "bugs"));
+        const docs = await getDocs(q);
+        return docs.docs;
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -39,4 +51,4 @@ const deleteBug = async(id) => {
     }
 };
 
-export {getBug, addBug, deleteBug};
+export {getBug, getAllBugs, addBug, deleteBug};

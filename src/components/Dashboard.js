@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { getBug, deleteBug } from "../firebaseDao";
+import BugsList from "./BugsList";
 
 import "./Dashboard.css";
 
@@ -23,26 +23,9 @@ function Dashboard() {
         }
     };
 
-    const [bug, setBug] = useState("");
-    const [bugId, setBugId] = useState("");
-    const displayBug = async() => {
-        try {
-            const doc = await getBug("Test Bug");
-            const bug = doc.data();
-            setBugId(doc.id);
-            setBug(bug.name);
-        } catch (error) {
-            console.error(error);
-            setBug("error getting bug");
-        }
-    }
 
     const goToAddBug = () => {
         navigate("/addbug");
-    }
-
-    const confirmDeleteBug = () => {
-        deleteBug(bugId); //not working yet
     }
 
     useEffect(() => {
@@ -57,9 +40,6 @@ function Dashboard() {
                 Logged in as
                 <div>{name}</div>
                 <div>{user?.email}</div>
-                <button className="dashboard__btn" onClick={ displayBug}>
-                    Get Bug
-                </button>
                 <button className="dashboard__btn" onClick={logout}>
                     Logout
                 </button>
@@ -69,9 +49,8 @@ function Dashboard() {
                     Add Bug
                 </button>
                 <div className="dashboard__bug">
-                    {bug}
+                    <BugsList/>
                 </div>
-                <button className="dashboard__btn" onClick={confirmDeleteBug}>Delete Bug</button>
             </div>
         </div>
     )
