@@ -1,0 +1,7 @@
+.buglist__container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: #dcdcdc;
+    padding: 30px;
+  }

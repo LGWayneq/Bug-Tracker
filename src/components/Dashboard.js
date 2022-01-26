@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import BugsList from "./BugsList";
+import Divider from '@mui/material/Divider';
 
 import "./Dashboard.css";
 
@@ -25,7 +26,7 @@ function Dashboard() {
 
 
     const goToAddBug = () => {
-        navigate("/addbug");
+        navigate("/add", { state: {_reporterName : name, workFunction : "Add"}});
     }
 
     useEffect(() => {
@@ -36,6 +37,7 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
+            <Divider></Divider>
             <div className="dashboard__container">
                 Logged in as
                 <div>{name}</div>
