@@ -35,15 +35,13 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <div className="dashboard__container">
-                <AppNavbar name={name} user={user}/>
-                <div className="dashboard__bug__container">
-                    <div className="dashboard__bug">
+                <AppNavbar name={name} user={user}/>   
+                <div className="dashboard__route__container">
+                    <div className="dashboard__route">
                         <Routes>
-                            <Route exact path="/bugs" element={<BugsList />}/>
-                            <Route exact path="/projects" element={<ProjectList />}/>
+                            <Route path="/bugs" element={<BugsList />}/>
+                            <Route path="/projects" element={<ProjectList />}/>
                         </Routes>
-                        <BugsList name={name}/>
-                        <ProjectList/>
                     </div>
                 </div>
             </div>
