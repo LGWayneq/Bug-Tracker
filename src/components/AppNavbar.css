@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    background-color: #89caff;
+    padding: 30px;
+    list-style: none;
+  }
+  .navbar__brand {
+    color: black;
+  }
+  .navbar__link:visited {
+    color: black;
+  }

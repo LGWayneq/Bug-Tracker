@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, db, logout } from "../firebase";
+import { auth, db } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import {Button, Navbar, NavbarText, NavItem, NavLink} from 'reactstrap';
+import {Button} from 'reactstrap';
 import BugsList from "./BugsList";
+import AppNavbar from "./AppNavbar";
 
 import "./Dashboard.css";
 
@@ -38,18 +39,7 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <div className="dashboard__container">
-                <Navbar className="dashboard__navbar">
-                    <NavItem>
-                        <NavLink className="dashboard__navbar__link" href="/projects">Projects</NavLink>
-                    </NavItem>
-                    <NavbarText className="dashboard__navbar__details">
-                        Logged in as{" "} <strong>{name}</strong>
-                        <br></br>{user?.email}
-                    </NavbarText>
-                    <Button className="dashboard__btn" onClick={logout}>
-                        Logout
-                    </Button>
-                </Navbar>
+                <AppNavbar name={name} user={user}/>
                 <div className="dashboard__bug__container">
                     <Button className="dashboard__btn" onClick={goToAddBug}>
                         Add Bug

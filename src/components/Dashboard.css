@@ -3,19 +3,6 @@
     align-items: flex-start;
     justify-content: center;
   }
-  .dashboard__navbar {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-    text-align: center;
-    background-color: #89caff;
-    padding: 30px;
-    list-style: none;
-  }
-  .dashboard__navbar__link:visited {
-    color: black;
-  }
   .dashboard__btn {
     padding: 10px;
     font-size: 18px;
