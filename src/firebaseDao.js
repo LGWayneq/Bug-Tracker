@@ -56,4 +56,43 @@ const deleteBug = async(bugId) => {
     }
 };
 
-export {getBug, getAllBugs, addBug, deleteBug, editBug};
+const getAllProjects = async() => {
+    try {
+        const q = query(collection(db, "projects"));
+        const docs = await getDocs(q);
+        return docs.docs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+const addProject = async(data) => {
+    try {
+        await addDoc(collection(db, "projects"), data);
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+};
+
+const editProject = async(data, projectId) => { //kind of messy way to edit but unable to get normal update function to work
+    try {
+        deleteProject(projectId);
+        addProject(data);
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+const deleteProject = async(projectId) => {
+    try {
+        await deleteDoc(doc(db, "projects", projectId));
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+};
+
+export {getBug, getAllBugs, addBug, deleteBug, editBug, getAllProjects, addProject, editProject, deleteProject};

@@ -3,8 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import {Button} from 'reactstrap';
+import {Route, Routes} from "react-router-dom";
 import BugsList from "./BugsList";
+import ProjectList from "./ProjectList";
 import AppNavbar from "./AppNavbar";
 
 import "./Dashboard.css";
@@ -25,11 +26,6 @@ function Dashboard() {
         }
     };
 
-
-    const goToAddBug = () => {
-        navigate("/add", { state: {_reporterName : name, workFunction : "Add"}});
-    }
-
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/");
@@ -41,11 +37,13 @@ function Dashboard() {
             <div className="dashboard__container">
                 <AppNavbar name={name} user={user}/>
                 <div className="dashboard__bug__container">
-                    <Button className="dashboard__btn" onClick={goToAddBug}>
-                        Add Bug
-                    </Button>
                     <div className="dashboard__bug">
-                        <BugsList/>
+                        <Routes>
+                            <Route exact path="/bugs" element={<BugsList />}/>
+                            <Route exact path="/projects" element={<ProjectList />}/>
+                        </Routes>
+                        <BugsList name={name}/>
+                        <ProjectList/>
                     </div>
                 </div>
             </div>

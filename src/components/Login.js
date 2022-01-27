@@ -2,6 +2,7 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, logInWithGoogle } from '../firebase';
+import { Toast, Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import "./Login.css"
@@ -21,40 +22,48 @@ function Login() {
 
     return (
         <div className="login">
-            <div className="login__container">
-                <input 
-                    type="text"
-                    className="login__textBox"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                />
-                <input 
-                    type="password"
-                    className="login__textBox"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
-                <button
+            <Form className="login__container">
+                <h1>BuGone</h1>
+                <FormGroup>
+                    <Label>Email</Label>
+                    <Input 
+                        type="text"
+                        className="login__textBox"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Password</Label>
+                    <Input 
+                        type="password"
+                        className="login__textBox"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                    />
+                </FormGroup>
+                
+                <Button
                     className="login__button"
                     onClick={() => logInWithEmailAndPassword(email, password)}
                 >
                     Login
-                </button>
-                <button
+                </Button>
+                <Button
                     className="login__button login__google"
                     onClick={logInWithGoogle}
                 >
                     Login with Google
-                </button>
+                </Button>
                 <div>
                     <Link to="/reset">Forgot Password</Link>
                 </div>
                 <div>
                     Don't have an account? <Link to="/register">Register</Link> now.
                 </div>
-            </div>
+            </Form>
         </div>
     );
 }

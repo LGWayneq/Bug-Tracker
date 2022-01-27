@@ -1,10 +1,10 @@
 import { getAllBugs } from "../firebaseDao";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card } from "reactstrap";
+import { Card, Button } from "reactstrap";
 import "./BugsList.css"
 
-function BugsList() {
+function BugsList(props) {
     const [bugs, setBugs] = useState([]);
     const navigate = useNavigate();
 
@@ -18,8 +18,12 @@ function BugsList() {
         }
     }, [])
 
+    const goToAddBug = () => {
+        navigate("/addbug", { state: {_reporterName : props.name, workFunction : "Add"}});
+    }
+
     const editBug = (bug) => {
-        navigate("/edit", { state: {
+        navigate("/editbug", { state: {
             _bugId : bug.id,
             _reporterName : bug.data().reporterName, 
             _bugName : bug.data().bugName, 
@@ -33,8 +37,11 @@ function BugsList() {
 
     return (
         <div className="buglist">
+            <Button className="dashboard__btn" onClick={goToAddBug}>
+                    Add Bug
+            </Button>
             {bugs.map(bug => (
-                <Card className="buglist__container" key={bug.id} onClick={(e) => editBug(bug)}>
+                <Card className="buglist__container" key={bug.id} style={{backgroundColor: '#fafffe', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>
                     <div className="buglist__bugName">
                         {bug.data().bugName}
                     </div>

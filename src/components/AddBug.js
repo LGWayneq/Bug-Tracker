@@ -18,22 +18,23 @@ function AddBug() {
     const [bugDescription, setBugDescription] = useState(_bugDescriptionNonNull);
     const [severity, setSeverity] = useState(_severityNonNull);
     const [status, setStatus] = useState(_statusNonNull);
-    const [validEntry, setValidEntry] = useState(true);
+    const [validEntry, setValidEntry] = useState(null);
     
     const navigate = useNavigate();
 
     const confirmAddOrEdit = () => {
-        setValidEntry(!(reporterName == "" || bugName == "" || bugDescription == ""), () => {
-            if (validEntry){
-                console.log(validEntry);
-                const startDate = new Date(Date());
-                const data = { reporterName, bugName, bugDescription, severity, status, startDate };
-                if (workFunction === "Add") addBug(data);
-                else editBug(data, _bugId);
-                navigate(-1);
-            }
-        });
+        setValidEntry(!(reporterName === "" || bugName === "" || bugDescription === ""))
     }
+
+    useEffect(() => {
+        if (validEntry){ //validEntry has 3 states: null, false, true
+            const startDate = new Date(Date());
+            const data = { reporterName, bugName, bugDescription, severity, status, startDate };
+            if (workFunction === "Add") addBug(data);
+            else editBug(data, _bugId);
+            navigate(-1);
+        }
+    }, [validEntry])
 
     const confirmDeleteBug = () => {
         deleteBug(_bugId);
@@ -53,7 +54,7 @@ function AddBug() {
                         className="addbug__textBox"
                         value={reporterName}
                         onChange={(e) => setReporterName(e.target.value)}
-                        placeholder="John Smith"
+                        placeholder="Reporter Name"
                         />
                     </FormGroup>
                     <FormGroup>
@@ -63,7 +64,7 @@ function AddBug() {
                         className="addbug__textBox"
                         value={bugName}
                         onChange={(e) => setBugName(e.target.value)}
-                        placeholder="UI Issue"
+                        placeholder="Bug Name"
                         />
                     </FormGroup>
                     <FormGroup>
@@ -73,7 +74,7 @@ function AddBug() {
                         className="addbug__textBox"
                         value={bugDescription}
                         onChange={(e) => setBugDescription(e.target.value)}
-                        placeholder="Description"
+                        placeholder="Bug Description"
                         />
                     </FormGroup>
                     <FormGroup>
@@ -95,7 +96,7 @@ function AddBug() {
                             <option value="Closed">Closed</option>
                         </Input>
                     </FormGroup>
-                    { !validEntry && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
+                    { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
                     <Button className="addbug__btn"
                     onClick={confirmAddOrEdit}>
                         {workFunction} Bug

@@ -7,8 +7,13 @@
     background-color: #89caff;
     padding: 30px;
     list-style: none;
+    border-bottom: 1px rgba(204, 204, 204, 0.863) solid;
   }
   .navbar__brand {
+    color: black;
+  }
+  .navbar__brand:hover {
+    cursor: pointer;
     color: black;
   }
   .navbar__link:visited {

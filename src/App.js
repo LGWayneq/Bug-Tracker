@@ -17,8 +17,8 @@ function App() {
                     <Route exact path="/register" element={<Register />}/>
                     <Route exact path="/reset" element={<Reset />}/>
                     <Route exact path="/dashboard" element={<Dashboard />}/>
-                    <Route exact path ="/add" element={<AddBug/>}/>
-                    <Route exact path ="/edit" element={<AddBug/>}/>
+                    <Route exact path ="/addbug" element={<AddBug/>}/>
+                    <Route exact path ="/editbug" element={<AddBug/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
