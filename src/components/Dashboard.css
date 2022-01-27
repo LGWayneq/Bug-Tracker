@@ -1,25 +1,29 @@
 .dashboard {
     height: 100vh;
-    width: 100vw;
-    display: flex;
     align-items: flex-start;
     justify-content: center;
   }
-  .dashboard__container {
+  .dashboard__navbar {
     display: flex;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
     text-align: center;
-    background-color: #dcdcdc;
+    background-color: #89caff;
     padding: 30px;
+    list-style: none;
+  }
+  .dashboard__navbar__link:visited {
+    color: black;
   }
   .dashboard__btn {
     padding: 10px;
     font-size: 18px;
-    margin-top: 10px;
     border: none;
     color: white;
     background-color: black;
   }
-  .dashboard div {
-    margin-top: 7px;
+  .dashboard__bug__container {
+    padding: 30px;
   }
+

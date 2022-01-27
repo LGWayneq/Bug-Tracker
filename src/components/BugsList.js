@@ -1,7 +1,7 @@
 import { getAllBugs } from "../firebaseDao";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
+import { Card } from "reactstrap";
 import "./BugsList.css"
 
 function BugsList() {
@@ -34,7 +34,7 @@ function BugsList() {
     return (
         <div className="buglist">
             {bugs.map(bug => (
-                <div className="buglist__container" key={bug.id} onClick={(e) => editBug(bug)}>
+                <Card className="buglist__container" key={bug.id} onClick={(e) => editBug(bug)}>
                     <div className="buglist__bugName">
                         {bug.data().bugName}
                     </div>
@@ -50,7 +50,7 @@ function BugsList() {
                     <div className="buglist__bugDescription">
                         {bug.data().bugDescription}
                     </div>
-                </div>    
+                </Card>    
             ))}            
         </div>
     )

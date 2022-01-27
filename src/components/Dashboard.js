@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import {Button, Navbar, NavbarText, NavItem, NavLink} from 'reactstrap';
 import BugsList from "./BugsList";
 
 import "./Dashboard.css";
@@ -37,19 +38,25 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <div className="dashboard__container">
-                Logged in as
-                <div>{name}</div>
-                <div>{user?.email}</div>
-                <button className="dashboard__btn" onClick={logout}>
-                    Logout
-                </button>
-            </div>
-            <div className="dashboard__bug__container">
-                <button className="dashboard__btn" onClick={goToAddBug}>
-                    Add Bug
-                </button>
-                <div className="dashboard__bug">
-                    <BugsList/>
+                <Navbar className="dashboard__navbar">
+                    <NavItem>
+                        <NavLink className="dashboard__navbar__link" href="/projects">Projects</NavLink>
+                    </NavItem>
+                    <NavbarText className="dashboard__navbar__details">
+                        Logged in as{" "} <strong>{name}</strong>
+                        <br></br>{user?.email}
+                    </NavbarText>
+                    <Button className="dashboard__btn" onClick={logout}>
+                        Logout
+                    </Button>
+                </Navbar>
+                <div className="dashboard__bug__container">
+                    <Button className="dashboard__btn" onClick={goToAddBug}>
+                        Add Bug
+                    </Button>
+                    <div className="dashboard__bug">
+                        <BugsList/>
+                    </div>
                 </div>
             </div>
         </div>
