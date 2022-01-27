@@ -17,8 +17,6 @@ function App() {
                     <Route path="/register" element={<Register />}/>
                     <Route path="/reset" element={<Reset />}/>
                     <Route path="/*" element={<Dashboard />}/>
-                    <Route path ="/addbug" element={<AddBug/>}/>
-                    <Route path ="/editbug" element={<AddBug/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

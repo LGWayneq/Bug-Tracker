@@ -6,6 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import {Route, Routes} from "react-router-dom";
 import BugsList from "./BugsList";
 import ProjectList from "./ProjectList";
+import AddBug from "./AddBug";
 import AppNavbar from "./AppNavbar";
 
 import "./Dashboard.css";
@@ -39,8 +40,10 @@ function Dashboard() {
                 <div className="dashboard__route__container">
                     <div className="dashboard__route">
                         <Routes>
-                            <Route path="/bugs" element={<BugsList />}/>
-                            <Route path="/projects" element={<ProjectList />}/>
+                            <Route path="/bugs" element={<BugsList name={name}/>}/>
+                            <Route path="/projects" element={<ProjectList name={name}/>}/>
+                            <Route path ="/addbug" element={<AddBug/>}/>
+                            <Route path ="/editbug" element={<AddBug/>}/>
                         </Routes>
                     </div>
                 </div>

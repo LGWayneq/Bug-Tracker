@@ -44,70 +44,67 @@ function AddBug() {
 
     return (
         <div className="addbug">
-            <div className="addbug__navbar">
-                <AppNavBar/>
-                <Form className="addbug__container">
-                    <FormGroup>
-                        <Label>Reporter Name</Label>
-                        <Input 
-                        type="text"
-                        className="addbug__textBox"
-                        value={reporterName}
-                        onChange={(e) => setReporterName(e.target.value)}
-                        placeholder="Reporter Name"
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Bug Name</Label>
-                        <Input 
-                        type="text"
-                        className="addbug__textBox"
-                        value={bugName}
-                        onChange={(e) => setBugName(e.target.value)}
-                        placeholder="Bug Name"
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Bug Description</Label>
-                        <Input 
-                        type="textarea"
-                        className="addbug__textBox"
-                        value={bugDescription}
-                        onChange={(e) => setBugDescription(e.target.value)}
-                        placeholder="Bug Description"
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Priority</Label>
-                        <Input className="addbug__dropdown" value={severity} onChange={(e) => setSeverity(e.target.value)} type="select">
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Low">Low</option>
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Status</Label>
-                        <Input className="addbug__dropdown" value={status} onChange={(e) => setStatus(e.target.value)} type="select">
-                            <option value="Open">Open</option>
-                            <option value="Assigned">Assigned</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Pending retest">Pending retest</option>
-                            <option value="Reopened">Reopened</option>
-                            <option value="Closed">Closed</option>
-                        </Input>
-                    </FormGroup>
-                    { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
-                    <Button className="addbug__btn"
-                    onClick={confirmAddOrEdit}>
-                        {workFunction} Bug
+            <Form className="addbug__container">
+                <FormGroup>
+                    <Label>Reporter Name</Label>
+                    <Input 
+                    type="text"
+                    className="addbug__textBox"
+                    value={reporterName}
+                    onChange={(e) => setReporterName(e.target.value)}
+                    placeholder="Reporter Name"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Bug Name</Label>
+                    <Input 
+                    type="text"
+                    className="addbug__textBox"
+                    value={bugName}
+                    onChange={(e) => setBugName(e.target.value)}
+                    placeholder="Bug Name"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Bug Description</Label>
+                    <Input 
+                    type="textarea"
+                    className="addbug__textBox"
+                    value={bugDescription}
+                    onChange={(e) => setBugDescription(e.target.value)}
+                    placeholder="Bug Description"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Priority</Label>
+                    <Input className="addbug__dropdown" value={severity} onChange={(e) => setSeverity(e.target.value)} type="select">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Label>Status</Label>
+                    <Input className="addbug__dropdown" value={status} onChange={(e) => setStatus(e.target.value)} type="select">
+                        <option value="Open">Open</option>
+                        <option value="Assigned">Assigned</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Pending retest">Pending retest</option>
+                        <option value="Reopened">Reopened</option>
+                        <option value="Closed">Closed</option>
+                    </Input>
+                </FormGroup>
+                { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
+                <Button className="addbug__btn"
+                onClick={confirmAddOrEdit}>
+                    {workFunction} Bug
+                </Button>
+                { workFunction === "Edit" && 
+                    <Button className="addbug__btn" onClick={confirmDeleteBug}>
+                        Delete Bug
                     </Button>
-                    { workFunction === "Edit" && 
-                        <Button className="addbug__btn" onClick={confirmDeleteBug}>
-                            Delete Bug
-                        </Button>
-                    }
-                </Form>
-            </div>
+                }
+            </Form>
         </div>
     )
 };
