@@ -6,11 +6,11 @@ import firebaseConfig from "./firebaseConfig";
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const getBug = async(name) => {
+const getBugsByProject = async(projectId) => {
     try {
-        const q = query(collection(db, "bugs"), where("name", "==", name));
+        const q = query(collection(db, "bugs"), where("projectId", "==", projectId));
         const docs = await getDocs(q);
-        return docs.docs[0];
+        return docs.docs;
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -95,4 +95,15 @@ const deleteProject = async(projectId) => {
     }
 };
 
-export {getBug, getAllBugs, addBug, deleteBug, editBug, getAllProjects, addProject, editProject, deleteProject};
+const getAllUsers = async() => {
+    try {
+        const q = query(collection(db, "users"));
+        const docs = await getDocs(q);
+        return docs.docs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+export {getBugsByProject, getAllBugs, addBug, deleteBug, editBug, getAllProjects, addProject, editProject, deleteProject, getAllUsers};

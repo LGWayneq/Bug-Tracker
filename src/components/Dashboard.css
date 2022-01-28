@@ -1,5 +1,6 @@
 .dashboard {
-    height: 100%;
+  display:flex;
+    height: 100vh;
     align-items: flex-start;
     justify-content: center;
     background-color: aliceblue;
@@ -12,6 +13,10 @@
     background-color: black;
   }
   .dashboard__route__container {
+    margin-top: 80px;
     padding: 30px;
+    background-color: aliceblue;
   }
-
+.dashboard__container {
+  width: 100%;
+}

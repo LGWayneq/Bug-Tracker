@@ -7,7 +7,7 @@ import { Toast, Form, FormGroup, Input, Label, Button } from "reactstrap";
 
 function AddBug() {
     const { state } = useLocation();
-    const { _bugId, _reporterName, _bugName, _bugDescription, _severity, _status, workFunction } = state;
+    const { _bugId, projectId, _reporterName, _bugName, _bugDescription, _severity, _status, workFunction } = state;
 
     const _bugNameNonNull = (_bugName == null) ? "" : _bugName;
     const _bugDescriptionNonNull = (_bugDescription == null) ? "" : _bugDescription;
@@ -29,7 +29,7 @@ function AddBug() {
     useEffect(() => {
         if (validEntry){ //validEntry has 3 states: null, false, true
             const startDate = new Date(Date());
-            const data = { reporterName, bugName, bugDescription, severity, status, startDate };
+            const data = { projectId, reporterName, bugName, bugDescription, severity, status, startDate };
             if (workFunction === "Add") addBug(data);
             else editBug(data, _bugId);
             navigate(-1);

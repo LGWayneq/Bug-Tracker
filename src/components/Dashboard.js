@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import {Route, Routes} from "react-router-dom";
+import ProjectRouter from "./ProjectRouter";
 import BugsList from "./BugsList";
 import ProjectList from "./ProjectList";
 import AddBug from "./AddBug";
+import AddProject from "./AddProject";
 import AppNavbar from "./AppNavbar";
-
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -41,9 +42,9 @@ function Dashboard() {
                     <div className="dashboard__route">
                         <Routes>
                             <Route path="/bugs" element={<BugsList name={name}/>}/>
-                            <Route path="/projects" element={<ProjectList name={name}/>}/>
-                            <Route path ="/addbug" element={<AddBug/>}/>
-                            <Route path ="/editbug" element={<AddBug/>}/>
+                            <Route path="/projects/*" element={<ProjectRouter name={name}/>}/>
+                            <Route path="/addbug" element={<AddBug/>}/>
+                            <Route path="/addproject" element={<AddProject/>}/>
                         </Routes>
                     </div>
                 </div>

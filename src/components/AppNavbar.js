@@ -8,23 +8,27 @@ import "./AppNavbar.css";
 function AppNavbar(props) {
     const navigate = useNavigate();
     const navigateToDashboard = () => {
-        navigate("/dashboard");
+        navigate("/projects");
     };
     return (
-        <Navbar className="navbar">
+        <Navbar className="navbar" fixed="top">
             <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><strong>BuGone</strong></NavbarBrand>
-            <NavItem>
-                <NavLink className="navbar__link" href="/projects">Projects</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink className="navbar__link" href="/bugs">Bugs</NavLink>
-            </NavItem>
-            <NavbarText className="navbar__details">
-                Logged in as{" "} {props.name === "" && <Spinner></Spinner>}{<strong>{props.name}</strong>}
-            </NavbarText>
-            <Button className="navbar__btn" onClick={logout}>
-                Logout
-            </Button>
+            <div className="navbar__item__container">
+                <NavItem className="navbar__item">
+                    <NavLink className="navbar__link" href="/projects">Projects</NavLink>
+                </NavItem>
+                <NavItem className="navbar__item">
+                    <NavLink className="navbar__link" href="/bugs">Bugs</NavLink>
+                </NavItem>
+            </div>
+            <div>
+                <NavbarText className="navbar__details">
+                    Logged in as{" "} {props.name === "" && <Spinner></Spinner>}{<strong>{props.name}</strong>}
+                </NavbarText>
+                <Button className="navbar__btn" onClick={logout}>
+                    Logout
+                </Button>
+            </div>
         </Navbar>
     )
 }

@@ -1,8 +1,25 @@
+.projectlist {
+  height: 100%;
+  background-color: aliceblue;
+  justify-content: center;
+}
 
 .projectlist__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectlist__card {
+    width: 100%;
     text-align: left;
     padding: 30px;
     margin-top: 30px;
   }
+
+  .projectlist__cardBtn {
+    margin-top: 10px;
+    width: 200px;
+  }
+
