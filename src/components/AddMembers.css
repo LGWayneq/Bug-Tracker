@@ -1,0 +1,12 @@
+.addmembers__card {
+  height:fit-content;
+}
+
+  .addmembers__btn {
+    display: inline-block;
+    margin: 5px;
+    width: fit-content;
+  }
+  .addmembers__initial {
+    height:50px;
+  }

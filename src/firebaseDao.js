@@ -67,6 +67,26 @@ const getAllProjects = async() => {
     }
 }
 
+const getAuthorisedProjects = async(userUid) => { //may be inefficient if too many accounts, might need to refine n^2 algo
+    try {
+        const docs = await getAllProjects();
+        var filteredDocs = [];
+        for (let i = 0; i < docs.length; i++) {
+            const data = docs[i].data()
+            for (let j = 0; j < data.teamMembers.length; j++) {
+                if (data.teamMembers[j].uid === userUid) {
+                    filteredDocs = [...filteredDocs, docs[i]];
+                    break;
+                }
+            }
+        }
+        return filteredDocs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
 const addProject = async(data) => {
     try {
         await addDoc(collection(db, "projects"), data);
@@ -106,4 +126,15 @@ const getAllUsers = async() => {
     }
 }
 
-export {getBugsByProject, getAllBugs, addBug, deleteBug, editBug, getAllProjects, addProject, editProject, deleteProject, getAllUsers};
+const getUserById = async(uid) => {
+    try {
+        const q = query(collection(db, "users"), where("uid", "==", uid));
+        const docs = await getDocs(q);
+        return docs.docs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+export {getBugsByProject, getAllBugs, addBug, deleteBug, editBug, getAllProjects, getAuthorisedProjects, addProject, editProject, deleteProject, getAllUsers, getUserById};

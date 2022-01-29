@@ -7,14 +7,15 @@ import AddMember from "./AddMember";
 
 function AddProject() {
     const { state } = useLocation();
-    const { projectId, _leaderName, _projectName, workFunction } = state;
+    const { projectId, _leaderName, _projectName, _teamMembers, workFunction } = state;
 
-    const _projectNameNonNull = (_projectName == null) ? "" : _projectName;
+    const _projectNameNonNull = (_projectName === null) ? "" : _projectName;
+    const _teamMembersNonNull = (_teamMembers === null) ? [] : _teamMembers;
     const [leaderName, setLeaderName] = useState(_leaderName);
     const [projectName, setProjectName] = useState(_projectNameNonNull);
     const [validEntry, setValidEntry] = useState(null);
     const [openModal, setOpenModal] = useState(false);
-    const [teamMembers, setTeamMembers] = useState([]);
+    const [teamMembers, setTeamMembers] = useState(_teamMembersNonNull);
     const navigate = useNavigate();
 
     const confirmAddOrEdit = () => {
@@ -24,7 +25,7 @@ function AddProject() {
     useEffect(() => {
         if (validEntry){ //validEntry has 3 states: null, false, true
             const startDate = new Date(Date());
-            const data = { leaderName, projectName, startDate };
+            const data = { leaderName, projectName, teamMembers, startDate };
             if (workFunction === "Add") addProject(data);
             else editProject(data, projectId);
             navigate(-1);
@@ -38,10 +39,6 @@ function AddProject() {
 
     const getTeamMembers = (membersList) => {
         setTeamMembers(membersList);
-    }
-
-    const removeTeamMember = (member) => {
-
     }
 
     return (
@@ -67,15 +64,9 @@ function AddProject() {
                     placeholder="Leader Name"
                     />
                 </FormGroup>
-                <AddMember getTeamMembers={getTeamMembers}/>
+                <AddMember getTeamMembers={getTeamMembers} currentTeamMembers={teamMembers}/>
                 
-                <Card className="addproject__memberscard">
-                {teamMembers.map(member => (
-                    <Button className="addproject__membersbtn" onClick={removeTeamMember(member)} key={member.id}>
-                        {member.data().name}
-                    </Button>
-                    ))}
-                </Card>
+                
                
                 { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
                 <Button className="addproject__btn"

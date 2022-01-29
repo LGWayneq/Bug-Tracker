@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllProjects } from "../firebaseDao";
+import { getAllProjects, getAuthorisedProjects } from "../firebaseDao";
 import {Card, Button, Spinner} from "reactstrap"
 import "./ProjectList.css";
 
-function ProjectList() {
+function ProjectList(props) {
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
 
     useEffect(async() => {
         try {
-            const docs = await getAllProjects();
+            const docs = await getAuthorisedProjects(props.uid);
             setProjects(docs)
         } catch(error) {
             console.error(error);
             alert(error);
         }
-    }, [])
+    }, [props.uid])
 
     const goToAddProject = () => {
-        navigate("/addproject", { state: {workFunction: "Add"}});
+        navigate("/addproject", { state: {_teamMembers : [],workFunction: "Add"}});
     }
 
     const goToOverview = (project) => {
@@ -34,6 +34,7 @@ function ProjectList() {
             projectId : project.id,
             _leaderName : project.data().leaderName, 
             _projectName : project.data().projectName, 
+            _teamMembers : project.data().teamMembers,
             workFunction: "Edit"
         }
         });  

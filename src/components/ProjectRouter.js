@@ -9,7 +9,7 @@ function ProjectRouter(props) {
     return (
         <div>
             <Routes>
-                <Route path="/*" element={<ProjectList/>}/>
+                <Route path="/*" element={<ProjectList uid={props.uid}/>}/>
                 <Route path="/overview" element={<BugsList name={props.name}/>}/>
                 <Route path="/overview/*" element={<AddBug/>}/>
                 <Route path="/editproject" element={<AddProject/>}/>

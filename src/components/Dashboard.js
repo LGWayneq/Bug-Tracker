@@ -15,6 +15,7 @@ import "./Dashboard.css";
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
+    const [uid, setUid] = useState("");
     const navigate = useNavigate();
     const fetchUserName = async() => {
         try {
@@ -22,6 +23,7 @@ function Dashboard() {
             const doc = await getDocs(q);
             const data = doc.docs[0].data();
             setName(data.name);
+            setUid(data.uid);
         } catch (error) {
             console.error(error);
             alert("An error occurred while fetching user data");
@@ -42,7 +44,7 @@ function Dashboard() {
                     <div className="dashboard__route">
                         <Routes>
                             <Route path="/bugs" element={<BugsList name={name}/>}/>
-                            <Route path="/projects/*" element={<ProjectRouter name={name}/>}/>
+                            <Route path="/projects/*" element={<ProjectRouter name={name} uid={uid}/>}/>
                             <Route path="/addbug" element={<AddBug/>}/>
                             <Route path="/addproject" element={<AddProject/>}/>
                         </Routes>
