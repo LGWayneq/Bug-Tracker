@@ -12,7 +12,7 @@ const logInWithGoogle = async() => {
     try {
         const response = await signInWithPopup(auth, googleProvider);
         const user = response.user;
-        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
             await addDoc(collection(db, "users"), {

@@ -5,7 +5,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
-import AddBug from "./components/AddBug";
 
 
 function App() {

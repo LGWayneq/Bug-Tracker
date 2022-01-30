@@ -98,6 +98,7 @@ const addProject = async(data) => {
 
 const editProject = async(data, projectId) => { //kind of messy way to edit but unable to get normal update function to work
     try {
+        //await updateDoc(collection(db, "projects").reference(projectId                          ), data);
         deleteProject(projectId);
         addProject(data);
     } catch (error) {
