@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, logInWithGoogle } from '../firebase';
 import { Toast, Form, FormGroup, Input, Label, Button } from "reactstrap";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState, GoogleAuthProvider } from "react-firebase-hooks/auth";
 
 import "./Login.css"
 
@@ -11,7 +11,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, error] = useAuthState(auth);
-    const navigate = useNavigate();
+    const navigate = useNavigate();                              
     useEffect(() => {
         if (loading) {
         // maybe trigger a loading screen
