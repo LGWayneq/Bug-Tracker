@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { getFirestore,query,getDocs,collection,where,addDoc, deleteDoc,doc, updateDoc} from "firebase/firestore";
+import { getFirestore,query,getDocs, getDoc,collection,where,addDoc, deleteDoc,doc, updateDoc} from "firebase/firestore";
 import firebaseConfig from "./firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
@@ -8,7 +7,6 @@ const db = getFirestore(app);
 
 const getBugsByProject = async(projectId) => {
     try {
-        console.log(projectId);
         const q = query(collection(db, "bugs"), where("projectId", "==", projectId));
         const docs = await getDocs(q);
         return docs.docs;
@@ -17,6 +15,17 @@ const getBugsByProject = async(projectId) => {
         alert(error.message);
     }
 };
+
+const getAssignedBugs = async(uid) => {
+    try {
+        const q = query(collection(db, "bugs"), where("assignedTo", "==", uid));
+        const docs = await getDocs(q);
+        return docs.docs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
 
 const getAllBugs = async() => {
     try {
@@ -136,4 +145,27 @@ const getUserById = async(uid) => {
     }
 }
 
-export {getBugsByProject, getAllBugs, addBug, deleteBug, editBug, getAllProjects, getAuthorisedProjects, addProject, editProject, deleteProject, getAllUsers, getUserById};
+const getUsersByProjectId = async(projectId) => { //temporary implementation
+    try {
+        const docs = await getAllUsers(); 
+        return docs;
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+export {getBugsByProject, 
+    getAllBugs, 
+    addBug, 
+    deleteBug, 
+    editBug, 
+    getAllProjects, 
+    getAuthorisedProjects, 
+    addProject, 
+    editProject, 
+    deleteProject, 
+    getAllUsers, 
+    getUserById, 
+    getUsersByProjectId, 
+    getAssignedBugs};

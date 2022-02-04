@@ -11,7 +11,6 @@ function AddMember(props) {
     const removeUserIfMember = (members, user) => {
         var remove = false;
         for (let i = 0; i < members.length; i++) {
-            console.log(members[i].uid, user.uid, members[i].uid === user.uid)
             if (members[i].uid === user.uid) {
                 remove = true;
                 break;

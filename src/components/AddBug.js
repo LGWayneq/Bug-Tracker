@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import {addBug, deleteBug, editBug} from "../firebaseDao";
-import AppNavBar from "./AppNavbar";
+import { useNavigate, useLocation } from "react-router-dom";
+import {addBug, deleteBug, editBug, getUsersByProjectId} from "../firebaseDao";
 import "./AddBug.css";
 import { Toast, Form, FormGroup, Input, Label, Button } from "reactstrap";
 
 function AddBug() {
     const { state } = useLocation();
-    const { _bugId, projectId, _reporterName, _bugName, _bugDescription, _severity, _status, workFunction } = state;
+    const { _bugId, projectId, _reporterName, _bugName, _bugDescription, _severity, _status, _assignedTo, workFunction } = state;
 
     const _bugNameNonNull = (_bugName == null) ? "" : _bugName;
     const _bugDescriptionNonNull = (_bugDescription == null) ? "" : _bugDescription;
@@ -19,6 +18,8 @@ function AddBug() {
     const [severity, setSeverity] = useState(_severityNonNull);
     const [status, setStatus] = useState(_statusNonNull);
     const [validEntry, setValidEntry] = useState(null);
+    const [assignedTo, setAssignedTo] = useState(_assignedTo);
+    const [members, setMembers] = useState([]);
     
     const navigate = useNavigate();
 
@@ -27,9 +28,30 @@ function AddBug() {
     }
 
     useEffect(() => {
+        const getProjectMembers = async() => {
+            const docs = await getUsersByProjectId(projectId);
+            setMembers(docs.map((doc) => 
+                JSON.parse('{"name":"' + doc.data().name + '", "uid":"'+ doc.data().uid+'"}')
+            ));
+        }
+        getProjectMembers()
+    })
+    const assignedToList = (
+        <FormGroup>
+            <Label>Assigned To</Label>
+                <Input className="addbug__dropdown" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} type="select">
+                    {members.map(member => (
+                        <option key={member.uid} value={member.uid+member.name}>
+                            {member.name}
+                        </option>
+                    ))}
+                </Input>
+        </FormGroup>)
+
+    useEffect(() => {
         if (validEntry){ //validEntry has 3 states: null, false, true
             const startDate = new Date(Date());
-            const data = { projectId, reporterName, bugName, bugDescription, severity, status, startDate };
+            const data = { projectId, reporterName, bugName, bugDescription, severity, status, assignedTo, startDate };
             if (workFunction === "Add") addBug(data);
             else editBug(data, _bugId);
             navigate(-1);
@@ -94,6 +116,7 @@ function AddBug() {
                         <option value="Closed">Closed</option>
                     </Input>
                 </FormGroup>
+                { status === "Assigned" && assignedToList}
                 { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
                 <Button className="addbug__btn"
                 onClick={confirmAddOrEdit}>

@@ -10,13 +10,16 @@ function AppNavbar(props) {
     const navigateToDashboard = () => {
         navigate("/projects");
     };
+    const navigateToBugs = () => {
+        navigate("/bugs", { state : {projectId: null}})
+    };
 
     const navbarLinks = <div className="navbar__item__container">
                 <NavItem className="navbar__item">
                     <NavLink className="navbar__link" href="/projects">Projects</NavLink>
                 </NavItem>
                 <NavItem className="navbar__item">
-                    <NavLink className="navbar__link" href="/bugs">Bugs</NavLink>
+                    <NavLink className="navbar__link" href="" onClick={navigateToBugs}>Bugs</NavLink>
                 </NavItem>
             </div>;
 

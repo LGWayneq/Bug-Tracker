@@ -1,33 +1,26 @@
-import { getAllBugs, getBugsByProject, getUserById } from "../firebaseDao";
+import { getAssignedBugs } from "../firebaseDao";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Card, Button, Spinner } from "reactstrap";
+import { useNavigate,  } from "react-router-dom";
+import { Card, Spinner, Button } from "reactstrap";
 import "./BugsList.css"
 
-function BugsList(props) {
-    const { state } = useLocation();
-    const { projectId } = state;
+function AssignedBugsList(props) {
     const [bugs, setBugs] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(async() => {
-        try {
-            const docs = await getBugsByProject(projectId)
-            setBugs(docs)
-        } catch(error) {
-            console.error(error);
-            alert(error);
+    useEffect(() => {
+        const fetchData = async(props) => {
+            const docs = await getAssignedBugs(props.uid + props.name);
+            setBugs(docs);
         }
-    }, [])
+        fetchData(props);
+    }, [props.uid])
 
-    const goToAddBug = () => {
-        navigate("/addbug", { state: { projectId, _reporterName : props.name, workFunction : "Add"}});
-    }
 
     const editBug = (bug) => {
         navigate("/projects/overview/" + bug.id, { state: {
             _bugId : bug.id,
-            projectId: bug.data().projectId, 
+            projectId: bug.data().projectId,
             _reporterName : bug.data().reporterName, 
             _bugName : bug.data().bugName, 
             _bugDescription : bug.data().bugDescription,
@@ -41,9 +34,6 @@ function BugsList(props) {
 
     return (
         <div className="buglist">
-            <Button className="buglist__btn" onClick={goToAddBug}>
-                    Add Bug
-            </Button>
             <div className="buglist__container">
                 {bugs.length === 0 && <Spinner className="buglist__spinner"/>}
                 {bugs.map(bug => (
@@ -60,9 +50,6 @@ function BugsList(props) {
                         <div className="buglist__status">
                             <strong>Status: </strong>{bug.data().status}
                         </div>
-                        { bug.data().assignedTo != "" && <div className="buglist__assignedTo">
-                            <strong>Assigned To: </strong>{bug.data().assignedTo.slice(28)}
-                        </div>}
                         <div className="buglist__bugDescription">
                             {bug.data().bugDescription}
                         </div>
@@ -73,4 +60,4 @@ function BugsList(props) {
     )
 }
 
-export default BugsList;
+export default AssignedBugsList;

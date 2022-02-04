@@ -5,8 +5,7 @@ import { auth, db } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import {Route, Routes} from "react-router-dom";
 import ProjectRouter from "./ProjectRouter";
-import BugsList from "./BugsList";
-import ProjectList from "./ProjectList";
+import AssignedBugsList from "./AssignedBugsList";
 import AddBug from "./AddBug";
 import AddProject from "./AddProject";
 import AppNavbar from "./AppNavbar";
@@ -43,7 +42,7 @@ function Dashboard() {
                 <div className="dashboard__route__container">
                     <div className="dashboard__route">
                         <Routes>
-                            <Route path="/bugs" element={<BugsList name={name}/>}/>
+                            <Route path="/bugs" element={<AssignedBugsList name={name} uid={uid}/>}/>
                             <Route path="/projects/*" element={<ProjectRouter name={name} uid={uid}/>}/>
                             <Route path="/addbug" element={<AddBug/>}/>
                             <Route path="/addproject" element={<AddProject/>}/>
