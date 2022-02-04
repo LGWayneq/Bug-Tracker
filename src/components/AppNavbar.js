@@ -10,17 +10,20 @@ function AppNavbar(props) {
     const navigateToDashboard = () => {
         navigate("/projects");
     };
-    return (
-        <Navbar className="navbar" fixed="top">
-            <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><strong>BuGone</strong></NavbarBrand>
-            <div className="navbar__item__container">
+
+    const navbarLinks = <div className="navbar__item__container">
                 <NavItem className="navbar__item">
                     <NavLink className="navbar__link" href="/projects">Projects</NavLink>
                 </NavItem>
                 <NavItem className="navbar__item">
                     <NavLink className="navbar__link" href="/bugs">Bugs</NavLink>
                 </NavItem>
-            </div>
+            </div>;
+
+    return (
+        <Navbar className="navbar" fixed="top">
+            <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><strong>BuGone</strong></NavbarBrand>
+            
             <div>
                 <NavbarText className="navbar__details">
                     Logged in as{" "} {props.name === "" && <Spinner></Spinner>}{<strong>{props.name}</strong>}

@@ -8,6 +8,7 @@ const db = getFirestore(app);
 
 const getBugsByProject = async(projectId) => {
     try {
+        console.log(projectId);
         const q = query(collection(db, "bugs"), where("projectId", "==", projectId));
         const docs = await getDocs(q);
         return docs.docs;
@@ -37,10 +38,9 @@ const addBug = async(data) => {
     }
 };
 
-const editBug = async(data, bugId) => { //kind of messy way to edit but unable to get normal update function to work
+const editBug = async(data, bugId) => {
     try {
-        deleteBug(bugId);
-        addBug(data);
+        await updateDoc(doc(db, "bugs", bugId), data);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -96,10 +96,9 @@ const addProject = async(data) => {
     }
 };
 
-const editProject = async(data, projectId) => { //kind of messy way to edit but unable to get normal update function to work
+const editProject = async(data, projectId) => {
     try {
-        deleteProject(projectId);
-        addProject(data);
+        await updateDoc(doc(db, "projects", projectId), data);
     } catch (error) {
         console.error(error);
         alert(error.message);
