@@ -23,7 +23,7 @@ function AppNavbar(props) {
     return (
         <Navbar className="navbar" fixed="top">
             <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><strong>BuGone</strong></NavbarBrand>
-            
+            {navbarLinks}
             <div>
                 <NavbarText className="navbar__details">
                     Logged in as{" "} {props.name === "" && <Spinner></Spinner>}{<strong>{props.name}</strong>}

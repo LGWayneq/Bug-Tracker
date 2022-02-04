@@ -36,7 +36,11 @@ function AddMember(props) {
                 alert(error);
             }
         }
+        const sortUsers = () => {
+            //To do: implement sortUsers
+        }
         fetchData();
+        sortUsers();
     }, [])
 
     const addTeamMember = (name) => {
