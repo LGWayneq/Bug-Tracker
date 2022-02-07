@@ -1,7 +1,7 @@
 .navbar {
     height: 80px;
     width: 100%;
-    background-color: #89caff;
+    background-color: #2962ff;
     padding: 30px;
     border-bottom: 1px rgba(204, 204, 204, 0.863) solid;
   }
@@ -14,15 +14,21 @@
     margin-right: 50px;
   }
   .navbar__brand {
-    color: black;
+    color: white;
   }
   .navbar__brand:hover {
     cursor: pointer;
-    color: black;
+    color: white;
   }
   .navbar__link:visited {
-    color: black;
+    color: white;
   }
   .navbar__details {
     margin-right:20px;
+  }
+  .navbar__link {
+    color: white;
+  }
+  .navbar__details {
+    color: white;
   }

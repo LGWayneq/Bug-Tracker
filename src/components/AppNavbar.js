@@ -31,7 +31,7 @@ function AppNavbar(props) {
                 <NavbarText className="navbar__details">
                     Logged in as{" "} {props.name === "" && <Spinner></Spinner>}{<strong>{props.name}</strong>}
                 </NavbarText>
-                <Button className="navbar__btn" onClick={logout}>
+                <Button className="navbar__btn" onClick={logout} color="dark">
                     Logout
                 </Button>
             </div>

@@ -110,13 +110,12 @@ function AddBug() {
                     <Input className="addbug__dropdown" value={status} onChange={(e) => setStatus(e.target.value)} type="select">
                         <option value="Open">Open</option>
                         <option value="Assigned">Assigned</option>
-                        <option value="In Progress">In Progress</option>
                         <option value="Pending retest">Pending retest</option>
                         <option value="Reopened">Reopened</option>
                         <option value="Closed">Closed</option>
                     </Input>
                 </FormGroup>
-                { status === "Assigned" && assignedToList}
+                { (status === "Assigned" || status === "Pending retest") && assignedToList}
                 { validEntry === false && <Toast className="p-3 bg-danger my-2 rounded">Please fill in empty fields.</Toast>}
                 <Button className="addbug__btn"
                 onClick={confirmAddOrEdit}>
