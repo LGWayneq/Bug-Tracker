@@ -23,6 +23,9 @@
   .navbar__link:visited {
     color: white;
   }
+  .navbar__link:hover {
+    color: white;
+  }
   .navbar__details {
     margin-right:20px;
   }
@@ -30,5 +33,14 @@
     color: white;
   }
   .navbar__details {
+    color: white;
+  }
+  .navbar__linkText {
+    color: white;
+  }
+  .navbar__linkText:hover {
+    color: rgba(233, 233, 233, 0.692);
+  }
+  .navbar__linkText:visited {
     color: white;
   }

@@ -6,7 +6,7 @@ import "./BugsList.css"
 
 function BugsList(props) {
     const { state } = useLocation();
-    const { projectId } = state;
+    const { projectId, _projectName } = state;
     const [bugs, setBugs] = useState([]);
     const [openBugs, setOpenBugs] = useState(0);
     const [inProgressBugs, setInProgressBugs] = useState(0);
@@ -57,16 +57,19 @@ function BugsList(props) {
 
     return (
         <div className="buglist">
-            <Button className="buglist__btn" onClick={goToAddBug}>
-                    Add Bug
-            </Button>
             <div className="buglist__container">
                 <Card className="buglist__summary" style={{backgroundColor: '#fafffe', borderRadius: '12px'}}>
+                    <h5>{_projectName}</h5>
                     <strong>Project Summary</strong><br/>
                     Open: {openBugs}<br/>
                     In Progress: {inProgressBugs}<br/>
                     Closed: {closedBugs}<br/>
                 </Card>
+                <div className="buglist__btnContainer">
+                    <Button className="buglist__btn" onClick={goToAddBug}>
+                        Add Bug
+                    </Button>
+                </div>
                 {bugs.length === 0 && <Spinner className="buglist__spinner"/>}
                 {bugs.map(bug => (
                     <Card className="buglist__card" key={bug.id} style={{backgroundColor: '#E7F5FF', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>

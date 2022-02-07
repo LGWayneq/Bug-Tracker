@@ -16,16 +16,16 @@ function AppNavbar(props) {
 
     const navbarLinks = <div className="navbar__item__container">
                 <NavItem className="navbar__item">
-                    <NavLink className="navbar__link" href="/projects">Projects</NavLink>
+                    <NavLink className="navbar__link" href="/projects"><h5 className="navbar__linkText">Projects</h5></NavLink>
                 </NavItem>
                 <NavItem className="navbar__item">
-                    <NavLink className="navbar__link" href="" onClick={navigateToBugs}>Bugs</NavLink>
+                    <NavLink className="navbar__link" href="" onClick={navigateToBugs}><h5 className="navbar__linkText">Bugs</h5></NavLink>
                 </NavItem>
             </div>;
 
     return (
         <Navbar className="navbar" fixed="top">
-            <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><strong>BuGone</strong></NavbarBrand>
+            <NavbarBrand className="navbar__brand" onClick={navigateToDashboard}><h3>BuGone</h3></NavbarBrand>
             {navbarLinks}
             <div>
                 <NavbarText className="navbar__details">

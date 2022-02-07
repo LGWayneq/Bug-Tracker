@@ -4,6 +4,12 @@
   background-color: aliceblue;
   justify-content: center;
 }
+.buglist__titleContainer {
+  display:flex;
+  width: 100%;
+  align-items: left;
+  margin-left: 30px;
+}
 .buglist__summary {
   display: flex;
   width: 100%;
@@ -28,4 +34,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .buglist__btn {
+    margin-top: 30px;
+  }
+  .buglist__btnContainer {
+    width: 100%;
+
   }

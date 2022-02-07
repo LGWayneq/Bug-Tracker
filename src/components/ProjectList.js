@@ -25,6 +25,7 @@ function ProjectList(props) {
     const goToOverview = (project) => {
         navigate("/projects/overview", { state: {
             projectId : project.id,
+            _projectName : project.data().projectName, 
         }
         });
     }

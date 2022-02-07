@@ -35,6 +35,9 @@ function AssignedBugsList(props) {
     return (
         <div className="buglist">
             <div className="buglist__container">
+                <div className="buglist__titleContainer">
+                    <h3 className="buglist__title">Assigned Bugs</h3>
+                </div>
                 {bugs.length === 0 && <Spinner className="buglist__spinner"/>}
                 {bugs.map(bug => (
                     <Card className="buglist__card" key={bug.id} style={{backgroundColor: '#fafffe', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>
