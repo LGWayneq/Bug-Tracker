@@ -13,6 +13,7 @@ function BugsList(props) {
     const [openBugs, setOpenBugs] = useState(0);
     const [inProgressBugs, setInProgressBugs] = useState(0);
     const [closedBugs, setClosedBugs] = useState(0);
+    const [progressPercent, setProgressPercent] = useState(100);
     const [searchText, setSearchText] = useState("");
     const [sevFilter, setSevFilter] = useState("All");
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ function BugsList(props) {
             setOpenBugs(_openBugs);
             setInProgressBugs(_inProgressBugs);
             setClosedBugs(_closedBugs);
+            setProgressPercent((100*_closedBugs/bugs.length).toFixed(1));
         }
     }, [bugs])
 
@@ -63,15 +65,12 @@ function BugsList(props) {
     }
 
 
-    const progressBar = null/*(<Col className="buglist__progressContainer">
-    <CircularProgressbar className="buglist__progress" value={0.5} maxValue={1} text={`${0.5 * 100}%`} />
-</Col>)*/
 
     return (
         <div className="buglist">
             <div className="buglist__container">
                 <Card className="buglist__summary" style={{backgroundColor: '#E3EAFF', borderRadius: '12px'}}>
-                    <Row>
+                    <Row className="buglist__summaryRow">
                         <Col>
                             <h5>{_projectName}</h5>
                             <strong>Project Summary</strong><br/>
@@ -79,7 +78,9 @@ function BugsList(props) {
                             In Progress: {inProgressBugs}<br/>
                             Closed: {closedBugs}<br/>
                         </Col>
-                        {progressBar}
+                        <Col className="buglist__progressContainer" >
+                            <CircularProgressbar className="buglist__progress" value={progressPercent} maxValue={100} text={`${progressPercent}%`}  />
+                        </Col>
                     </Row>
                 </Card>
                 <Row className="buglist__btnContainer">
