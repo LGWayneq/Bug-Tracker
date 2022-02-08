@@ -63,6 +63,10 @@ function AddBug() {
         navigate(-1)
     }
 
+    const setStatusAndAssignedTo = (s) => {
+        setStatus(s);
+        if (s !== "Assigned" || s !== "Pending retest") setAssignedTo("");
+    }
 
     return (
         <div className="addbug">
@@ -107,7 +111,7 @@ function AddBug() {
                 </FormGroup>
                 <FormGroup>
                     <Label>Status</Label>
-                    <Input className="addbug__dropdown" value={status} onChange={(e) => setStatus(e.target.value)} type="select">
+                    <Input className="addbug__dropdown" value={status} onChange={(e) => setStatusAndAssignedTo(e.target.value)} type="select">
                         <option value="Open">Open</option>
                         <option value="Assigned">Assigned</option>
                         <option value="Pending retest">Pending retest</option>
