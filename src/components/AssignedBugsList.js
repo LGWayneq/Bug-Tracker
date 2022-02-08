@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate,  } from "react-router-dom";
 import { Card, Spinner, Button, Input, Row, Col } from "reactstrap";
 import "./BugsList.css"
+import "./AssignedBugsList.css"
 
 function AssignedBugsList(props) {
     const [bugs, setBugs] = useState([null]);
     const [searchText, setSearchText] = useState("");
-    const [sevFilter, setSevFilter] = useState("All");
+    const [sevFilter, setSevFilter] = useState("All Severity");
+    const [statusFilter, setStatusFilter] = useState("All Status");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,12 +44,25 @@ function AssignedBugsList(props) {
                 </div>
                 <Row className="buglist__btnContainer">
                     <Col><Input 
+                            className="buglist__searchBar" 
+                            style={{borderRadius: '8px'}}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            value={statusFilter}
+                            type="select">
+                            <option value="All Status">All Status</option>
+                            <option value="Open">Open</option>
+                            <option value="Assigned">Assigned</option>
+                            <option value="Pending retest">Pending retest</option>
+                            <option value="Reopened">Reopened</option>
+                            <option value="Closed">Closed</option>
+                    </Input></Col>
+                    <Col><Input 
                         className="buglist__searchBar" 
                         style={{borderRadius: '8px'}}
                         onChange={(e) => setSevFilter(e.target.value)}
                         value={sevFilter}
                         type="select">
-                        <option value="All">All</option>
+                        <option value="All Status">All Status</option>
                         <option value="High">High</option>
                         <option value="Medium">Medium</option>
                         <option value="Low">Low</option>
@@ -62,7 +77,7 @@ function AssignedBugsList(props) {
                 </Row>
                 {bugs[0] === null && <div className="buglist__spinnerContainer"><Spinner className="buglist__spinner"/></div>}
                 {bugs.length === 0 && <div className="buglist__nobugText"><p>There are no bugs assigned to you.</p></div>}
-                {bugs[0] !== null && bugs.map(bug => ( bug.data().bugName.includes(searchText) && (sevFilter === "All" || bug.data().severity === sevFilter) &&
+                {bugs[0] !== null && bugs.map(bug => ( bug.data().bugName.includes(searchText) && (sevFilter === "All Severity" || bug.data().severity === sevFilter) && (statusFilter === "All Status" || bug.data().status === statusFilter) &&
                     <Card className="buglist__card" key={bug.id} style={{backgroundColor: '#E7F5FF', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>
                         <div className="buglist__bugName">
                             <strong>{bug.data().bugName}</strong>
