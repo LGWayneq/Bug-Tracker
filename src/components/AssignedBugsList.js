@@ -1,11 +1,13 @@
 import { getAssignedBugs } from "../firebaseDao";
 import React, { useState, useEffect } from "react";
 import { useNavigate,  } from "react-router-dom";
-import { Card, Spinner, Button } from "reactstrap";
+import { Card, Spinner, Button, Input, Row, Col } from "reactstrap";
 import "./BugsList.css"
 
 function AssignedBugsList(props) {
-    const [bugs, setBugs] = useState([]);
+    const [bugs, setBugs] = useState([null]);
+    const [searchText, setSearchText] = useState("");
+    const [sevFilter, setSevFilter] = useState("All");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,9 +40,30 @@ function AssignedBugsList(props) {
                 <div className="buglist__titleContainer">
                     <h3 className="buglist__title">Assigned Bugs</h3>
                 </div>
-                {bugs.length === 0 && <Spinner className="buglist__spinner"/>}
-                {bugs.map(bug => (
-                    <Card className="buglist__card" key={bug.id} style={{backgroundColor: '#fafffe', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>
+                <Row className="buglist__btnContainer">
+                    <Col><Input 
+                        className="buglist__searchBar" 
+                        style={{borderRadius: '8px'}}
+                        onChange={(e) => setSevFilter(e.target.value)}
+                        value={sevFilter}
+                        type="select">
+                        <option value="All">All</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </Input></Col>
+                    <Col/>
+                    <Col><Input className="buglist__searchBar" 
+                        placeholder="Search Bug" 
+                        style={{borderRadius: '8px'}}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        value={searchText}>
+                    </Input></Col>
+                </Row>
+                {bugs[0] === null && <div className="buglist__spinnerContainer"><Spinner className="buglist__spinner"/></div>}
+                {bugs.length === 0 && <div className="buglist__nobugText"><p>There are no bugs assigned to you.</p></div>}
+                {bugs[0] !== null && bugs.map(bug => ( bug.data().bugName.includes(searchText) && (sevFilter === "All" || bug.data().severity === sevFilter) &&
+                    <Card className="buglist__card" key={bug.id} style={{backgroundColor: '#E7F5FF', borderRadius: '12px'}} onClick={(e) => editBug(bug)}>
                         <div className="buglist__bugName">
                             <strong>{bug.data().bugName}</strong>
                         </div>

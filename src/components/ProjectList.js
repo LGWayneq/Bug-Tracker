@@ -43,21 +43,25 @@ function ProjectList(props) {
 
     return (
         <div className="projectlist">
-            <Button className="projectlist__btn" onClick={goToAddProject}>Add Project</Button>
             <div className="projectlist__container">
-                {projects.length === 0 && <Spinner className="projectlist_spinner"/>}
+                <Button className="projectlist__btn" onClick={goToAddProject}>Add Project</Button>
+                {projects.length === 0 && <div className="projectlist__spinnerContainer"><Spinner className="projectlist__spinner"/></div>}
+                <div className="projectlist__cardContainer">
                 {projects.map(project => (
-                    <Card className="projectlist__card" key={project.id} style={{backgroundColor: '#fafffe', borderRadius: '12px'}} >
+                    <Card className="projectlist__card" key={project.id} style={{backgroundColor: '#E3EAFF', borderRadius: '12px'}} >
                         <div className="projectlist__projectName">
-                            <strong>{project.data().projectName}</strong>
+                            <h4>{project.data().projectName}</h4>
                         </div>
                         <div className="projectlist__reporterName">
                             <strong>Project Lead: </strong>{project.data().leaderName}
                         </div>
-                        <Button className="projectlist__cardBtn" onClick={() => goToOverview(project)}>Project Overview</Button>
-                        <Button className="projectlist__cardBtn" onClick={() => editProject(project)}>Edit Project</Button>
+                        <div className="projectlist__cardBtnContainer">
+                            <Button className="projectlist__cardBtn" onClick={() => goToOverview(project)}>Project Overview</Button>
+                            <Button className="projectlist__cardBtn" onClick={() => editProject(project)}>Edit Project</Button>
+                        </div>
                     </Card>    
-                ))}  
+                ))}
+                </div>  
             </div>
         </div>
     );
