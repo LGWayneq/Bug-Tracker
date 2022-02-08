@@ -25,6 +25,12 @@
   padding: 30px;
   margin-top: 30px;
 }
+.buglist__progressContainer {
+  
+}
+.buglist__progress {
+  height: 50%;
+}
 .buglist__nobugText {
   margin-top:30px;
 }

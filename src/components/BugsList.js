@@ -2,6 +2,8 @@ import { getAllBugs, getBugsByProject, getUserById } from "../firebaseDao";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Card, Button, Spinner, Input, Col, Row } from "reactstrap";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import "./BugsList.css"
 
 function BugsList(props) {
@@ -61,17 +63,24 @@ function BugsList(props) {
     }
 
 
-
+    const progressBar = null/*(<Col className="buglist__progressContainer">
+    <CircularProgressbar className="buglist__progress" value={0.5} maxValue={1} text={`${0.5 * 100}%`} />
+</Col>)*/
 
     return (
         <div className="buglist">
             <div className="buglist__container">
                 <Card className="buglist__summary" style={{backgroundColor: '#E3EAFF', borderRadius: '12px'}}>
-                    <h5>{_projectName}</h5>
-                    <strong>Project Summary</strong><br/>
-                    Open: {openBugs}<br/>
-                    In Progress: {inProgressBugs}<br/>
-                    Closed: {closedBugs}<br/>
+                    <Row>
+                        <Col>
+                            <h5>{_projectName}</h5>
+                            <strong>Project Summary</strong><br/>
+                            Open: {openBugs}<br/>
+                            In Progress: {inProgressBugs}<br/>
+                            Closed: {closedBugs}<br/>
+                        </Col>
+                        {progressBar}
+                    </Row>
                 </Card>
                 <Row className="buglist__btnContainer">
                     <Col><Button className="buglist__btn" onClick={goToAddBug}>
